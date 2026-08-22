@@ -16,7 +16,15 @@ import { chromium } from "playwright";
 const STORAGE_STATE_PATH = "storageState.json";
 
 async function main() {
-  const browser = await chromium.launch({ headless: false });
+  // channel: "chrome" запускает настоящий установленный Chrome вместо
+  // бандл-Chromium от Playwright — у бандл-версии X (как и Google) иногда
+  // распознаёт автоматизационную сигнатуру и молча блокирует шаги логина.
+  // Флаг ниже дополнительно убирает признак navigator.webdriver.
+  const browser = await chromium.launch({
+    headless: false,
+    channel: "chrome",
+    args: ["--disable-blink-features=AutomationControlled"],
+  });
   const context = await browser.newContext();
   const page = await context.newPage();
 
