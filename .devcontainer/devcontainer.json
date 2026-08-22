@@ -1,0 +1,19 @@
+{
+  "name": "x-scraper-login",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "login",
+      "webPort": 6080,
+      "vncPort": 5901
+    }
+  },
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "noVNC desktop (open this on your phone to see the login window)",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "npm install && npx playwright install --with-deps chromium"
+}
