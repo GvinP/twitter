@@ -1,0 +1,19 @@
+{
+  "name": "x-econ-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Читает публичные твиты небольшого списка X-аккаунтов через headless-браузер",
+  "type": "module",
+  "scripts": {
+    "login": "tsx src/login.ts",
+    "scrape": "tsx src/scraper.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.7.0"
+  }
+}

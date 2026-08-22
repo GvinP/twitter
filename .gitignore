@@ -1,0 +1,4 @@
+node_modules/
+storageState.json
+data/last-run-new-tweets.json
+dist/
