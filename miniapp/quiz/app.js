@@ -1,4 +1,7 @@
-let deck = shuffle(QUESTIONS.slice());
+const ANSWERABLE = QUESTIONS.filter((q) => !q.needsImage);
+const PENDING_IMAGES = QUESTIONS.length - ANSWERABLE.length;
+
+let deck = shuffle(ANSWERABLE.slice());
 let index = 0;
 let answered = false;
 let results = []; // { question, chosenKey, correct }
@@ -36,6 +39,9 @@ function renderQuestion() {
   if (q.note) {
     noteEl.hidden = false;
     noteEl.textContent = q.note;
+  } else if (q.verify) {
+    noteEl.hidden = false;
+    noteEl.textContent = "⚠ Точная цифра здесь не проверена по официальному источнику — сверь с методичкой.";
   } else {
     noteEl.hidden = true;
   }
@@ -139,6 +145,16 @@ function startQuiz(pool) {
 }
 
 nextBtn.addEventListener("click", next);
-document.getElementById("restartBtn").addEventListener("click", () => startQuiz(QUESTIONS));
+document.getElementById("restartBtn").addEventListener("click", () => startQuiz(ANSWERABLE));
+
+const pendingEl = document.getElementById("pendingImages");
+if (pendingEl) {
+  if (PENDING_IMAGES > 0) {
+    pendingEl.hidden = false;
+    pendingEl.textContent = `Ещё ${PENDING_IMAGES} билетов ждут картинок — их пока нет в игре.`;
+  } else {
+    pendingEl.hidden = true;
+  }
+}
 
 renderQuestion();
